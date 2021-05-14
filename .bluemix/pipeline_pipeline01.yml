@@ -1,0 +1,9 @@
+properties:
+  - type: secure
+    name: apikey
+    value: ""
+inputs:
+  - type: git
+    path: .pipeline
+    branch: master
+    service: ${github_integrated00}

@@ -1,0 +1,58 @@
+version: 2
+template:
+  name: Build your own toolchain
+  description: szone-ra-vsi-base-pattern-toolchain
+  required:
+    - github_integrated00
+toolchain:
+  name: slzone-ra-vsi-base-pattern-toolchain
+services:
+  github_integrated00:
+    parameters:
+      extra_capabilities:
+        - capability_id: git.issues
+          display_name: Issues
+          dashboard_url: https://github.ibm.com/slzone/ra-vsi-base-pattern/issues
+          label: ra-vsi-base-pattern
+          tags:
+            - think
+            - code
+          enabled: false
+          readme: false
+      label: ra-vsi-base-pattern
+      type: link
+      authorized: integrated
+      git_id: integrated
+      legal: true
+      owner_id: slzone
+      repo_url: https://github.ibm.com/slzone/ra-vsi-base-pattern.git
+      private_repo: true
+      has_issues: false
+      enable_traceability: false
+      integration_owner: '****'
+      repo_name: ra-vsi-base-pattern
+      api_root_url: '****'
+      token_url: '****'
+    service_id: github_integrated
+  pipeline01:
+    parameters:
+      label: slzone-delivery-pipeline
+      type: tekton
+      name: slzone-delivery-pipeline
+      ui_pipeline: true
+      configuration:
+        env:
+          github_integrated00: github_integrated00
+        content:
+          $text: pipeline_pipeline01.yml
+      services:
+        - github_integrated00
+    service_id: pipeline
+  draservicebroker02:
+    parameters:
+      cf_controller: '****'
+      dra_server: '****'
+      dlms_server: '****'
+      dashboard_url: '****'
+      env_id: '****'
+    service_id: draservicebroker
